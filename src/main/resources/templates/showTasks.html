@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Show tasks</title>
+    </head>
+    <style>
+        table {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        table td, table th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        table tr:nth-child(even){background-color: #f2f2f2;}
+
+        table tr:hover {background-color: #ddd;}
+
+        table th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+    <body>
+        <h2 th:if="${taskDetail == null}">TASK NOT FOUND</h2>
+    <table th:if="${taskDetail != null}">
+        <thead>
+            <th colspan="3">Task detail</th>
+        </thead>
+        <tbody>
+
+        <tr>
+            <th>Title:</th>
+            <td th:text="${taskDetail.naam}" colspan="2"></td>
+        </tr>
+        <tr>
+            <th>Description:</th>
+            <td th:text="${taskDetail.beschrijving}" colspan="2"></td>
+        </tr>
+<tr>
+    <th>Due date:</th>
+    <td th:text="${taskDetail.getDatumString()}" colspan="2"></td>
+</tr>
+<div th:if="${taskDetail.getSubTasks().size() != 0}">
+    <tr th:each="subTask:${subTasks}">
+        <th>Sub task: </th>
+        <td th:text="${subTask.naam}"></td>
+        <td th:text="${subTask.beschrijving}"></td>
+    </tr>
+</div>
+
+</tbody>
+</table>
+<p><a th:href="@{/}">Go back to home</a></p>
+<p th:text="${errorMessage}"></p>
+</body>
+</html>

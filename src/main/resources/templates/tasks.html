@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tasks</title>
+</head>
+<style>
+    table {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 60%;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    table td, table th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    table tr:nth-child(even){background-color: #f2f2f2;}
+
+    table tr:hover {background-color: #ddd;}
+
+    table th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #4CAF50;
+        color: white;
+    }
+</style>
+<body>
+    <table>
+        <thead>
+        <tr>
+            <th>Tasks</th>
+            <th>Description</th>
+            <th>Details</th>
+            <th>Edit Task</th>
+            <th>Sub Task</th>
+
+        </tr>
+        </thead>
+        <tbody>
+            <tr th:each="task:${tasks}">
+                <td th:text="'Task ' + ${task.getId()+1}"></td>
+                <td th:utext="*{task.toString()}"></td>
+                <td><a th:href="@{'/tasks/'+${task.getId()}}">See details </a></td>
+                <td><a th:href="@{'/tasks/edit/'+${task.getId()}}">Edit task</a></td>
+                <td><a th:href="@{'/tasks/'+${task.getId()+'/sub/create'}}">Create sub task</a></td>
+            </tr>
+            <tr>
+                <td><a th:href="@{'/tasks/new'}">Create task</a></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
