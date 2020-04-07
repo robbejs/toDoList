@@ -43,12 +43,12 @@
         </tr>
         </thead>
         <tbody>
-            <tr th:each="task:${tasks}">
-                <td th:text="'Task ' + ${task.getId()+1}"></td>
-                <td th:utext="*{task.toString()}"></td>
-                <td><a th:href="@{'/tasks/'+${task.getId()}}">See details </a></td>
-                <td><a th:href="@{'/tasks/edit/'+${task.getId()}}">Edit task</a></td>
-                <td><a th:href="@{'/tasks/'+${task.getId()+'/sub/create'}}">Create sub task</a></td>
+            <tr th:each="task : ${tasks}">
+                <td th:text="'Task ' + ${task.id }"></td>
+                <td th:utext="${task.naam} + '  - '  + ${task.beschrijving}"></td>
+                <td><a th:href="@{'/tasks/'+${task.id - 1}}">See details </a></td>
+                <td><a th:href="@{'/tasks/edit/'+${task.id - 1}}">Edit task</a></td>
+                <td><a th:href="@{'/tasks/'+${task.id - 1 +'/sub/create'}}">Create sub task</a></td>
             </tr>
             <tr>
                 <td><a th:href="@{'/tasks/new'}">Create task</a></td>

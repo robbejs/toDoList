@@ -46,15 +46,15 @@
         </tr>
 <tr>
     <th>Due date:</th>
-    <td th:text="${taskDetail.getDatumString()}" colspan="2"></td>
+    <td th:text="${taskDetail.dateAndTimeOfBeheading}" colspan="2"></td>
 </tr>
-<div th:if="${taskDetail.getSubTasks().size() != 0}">
+<!--<div th:if="${taskDetail.getSubTasks().size() != 0}">-->
     <tr th:each="subTask:${subTasks}">
         <th>Sub task: </th>
         <td th:text="${subTask.naam}"></td>
         <td th:text="${subTask.beschrijving}"></td>
     </tr>
-</div>
+<!--</div>-->
 
 </tbody>
 </table>

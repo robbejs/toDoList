@@ -1,32 +1,24 @@
-package SO.toDoList.domain;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.lang.NonNull;
+package SO.toDoList.dto;
 
-import javax.persistence.*;
+import SO.toDoList.domain.SubTask;
+import SO.toDoList.domain.Task;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
-@Entity
-public class Task {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+public class TaskDTO {
     @NotEmpty
     private String naam;
-    private LocalDateTime dateAndTimeOfBeheading;
     @NotEmpty
     private String beschrijving;
-
-    public LocalDateTime getDateAndTimeOfBeheading() {
-        return dateAndTimeOfBeheading;
-    }
-
-    public void setDateAndTimeOfBeheading(LocalDateTime dateAndTimeOfBeheading) {
-        this.dateAndTimeOfBeheading = dateAndTimeOfBeheading;
-    }
+    private LocalDateTime dateAndTimeOfBeheading;
+    private int id;
 
     public void setNaam(String naam) {
         this.naam = naam;
@@ -42,6 +34,14 @@ public class Task {
 
     public String getBeschrijving(){
         return this.beschrijving;
+    }
+
+    public LocalDateTime getDateAndTimeOfBeheading() {
+        return dateAndTimeOfBeheading;
+    }
+
+    public void setDateAndTimeOfBeheading(LocalDateTime dateAndTimeOfBeheading) {
+        this.dateAndTimeOfBeheading = dateAndTimeOfBeheading;
     }
 
     public int getId() {

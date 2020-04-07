@@ -1,6 +1,8 @@
 package SO.toDoList.Controller;
 import SO.toDoList.domain.SubTask;
 import SO.toDoList.domain.Task;
+import SO.toDoList.dto.TaskDTO;
+import SO.toDoList.service.TaskService;
 import SO.toDoList.service.TaskServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,27 +15,32 @@ import javax.validation.Valid;
 @RequestMapping("/")
 public class toDoController {
     private int id;
-    private final TaskServiceImpl service;
+    private TaskService service;
 
     @Autowired
     public toDoController(TaskServiceImpl service) {
         this.service = service;
     }
 
-    @RequestMapping
-    public String navigatie(Model model){
-        model.addAttribute("tasks", this.service.getTasks());
+    @GetMapping
+    public String getTasks(Model model) {
+        model.addAttribute("tasks", service.getTasks());
         return "tasks";
     }
 
-    @RequestMapping("/tasks")
-    public String getTasks(Model model){
-        if (service.getTasks().size() == 0){
-            model.addAttribute("tasks", "No tasks left to do");
-        }else{
-            model.addAttribute("tasks", service.getTasks());
+    @GetMapping("/tasks/new")
+    public String getCreateForm(Model model) {
+        model.addAttribute("task", new Task());
+        return "addTask";
+    }
+
+    @PostMapping("/tasks/addTask")
+    public String postNewHead(@ModelAttribute @Valid TaskDTO task, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "addTask";
         }
-        return "tasks";
+        service.addTask(task);
+        return "redirect:/";
     }
 
     @RequestMapping("/tasks/{id}")
@@ -42,42 +49,25 @@ public class toDoController {
         if (service.getTasks().size() <= id || id < 0){
             model.addAttribute("taskDetail",null);
         }else {
-            model.addAttribute("taskDetail", service.getTask(id));
-            model.addAttribute("subTasks", service.getTask(id).getSubTasks());
+            model.addAttribute("taskDetail", service.getTasks().get(id));
+            model.addAttribute("subTasks", service.returnSubtask(id));
         }
         return "showTasks";
-    }
-
-    @RequestMapping("/tasks/new")
-    public String showAddTask(Model model){
-        model.addAttribute("task", new Task());
-        return "addTask";
-    }
-
-    @PostMapping("/tasks/addTask")
-    public String addTask(@ModelAttribute @Valid Task task, BindingResult bindingResult){
-        if (bindingResult.hasErrors()){
-            return "addTask";
-        }
-        service.addTask(task);
-        return "redirect:/tasks";
     }
 
     @RequestMapping("/tasks/edit/{id}")
     public String showEditTask(@PathVariable("id") int id, Model model){
         this.id = id;
-        model.addAttribute("task", service.getTask(id));
+        model.addAttribute("task", service.getTasks().get(id));
         return "editTask";
     }
 
     @PostMapping("/tasks/editTask")
-    public String editTask(@ModelAttribute @Valid Task task, BindingResult bindingResult){
+    public String editTask(@ModelAttribute @Valid TaskDTO task, BindingResult bindingResult){
         if (bindingResult.hasErrors()){
             return "editTask";
         }
-        service.getTask(id).setNaam(task.getNaam());
-        service.getTask(id).setDatum(task.getDatum());
-        service.getTask(id).setBeschrijving(task.getBeschrijving());
+        service.editTask(task, id);
         return "redirect:/tasks/"+id;
     }
 
@@ -93,7 +83,7 @@ public class toDoController {
         if (bindingResult.hasErrors()){
             return "createSubTask";
         }
-        service.getTask(id).addSubTask(subTask);
+        service.addSubtask(id, subTask);
         return "redirect:/tasks/"+id;
     }
 }
