@@ -14,9 +14,12 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
     @NotEmpty
     private String naam;
+
     private LocalDateTime dateAndTimeOfBeheading;
+
     @NotEmpty
     private String beschrijving;
 

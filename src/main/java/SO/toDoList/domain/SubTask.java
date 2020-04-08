@@ -5,7 +5,6 @@ public class SubTask {
     private String beschrijving;
 
     public SubTask(){
-
     }
 
     public SubTask(String naam, String beschrijving){

@@ -15,8 +15,10 @@ import java.util.ArrayList;
 public class TaskDTO {
     @NotEmpty
     private String naam;
+
     @NotEmpty
     private String beschrijving;
+
     private LocalDateTime dateAndTimeOfBeheading;
     private int id;
 

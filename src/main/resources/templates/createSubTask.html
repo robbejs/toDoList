@@ -42,6 +42,7 @@
     }
 </style>
 <body>
+
 <form method="post" action="/tasks/createSubTask" th:object="${subTask}">
     <h4>Edit Task</h4>
     <div>
@@ -56,6 +57,8 @@
     </div>
     <input type="submit" value="Create Sub Task">
 </form>
+
 <p><a th:href="@{/}">Go back to home</a></p>
+
 </body>
 </html>

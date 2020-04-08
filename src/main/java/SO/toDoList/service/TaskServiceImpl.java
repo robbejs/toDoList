@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class TaskServiceImpl implements TaskService{
+
     private final TaskRepository repository;
     private HashMap<Integer, ArrayList<SubTask>> subtasks = new HashMap<>();
     private  int id = 1;
