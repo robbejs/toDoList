@@ -1,16 +1,7 @@
-package SO.toDoList.dto;
+package SO.toDoList.model.dto;
 
-import SO.toDoList.domain.SubTask;
-import SO.toDoList.domain.Task;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 public class TaskDTO {
     @NotEmpty

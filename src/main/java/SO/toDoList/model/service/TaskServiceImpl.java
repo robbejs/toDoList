@@ -1,8 +1,8 @@
-package SO.toDoList.service;
-import SO.toDoList.domain.SubTask;
-import SO.toDoList.domain.Task;
-import SO.toDoList.dto.TaskDTO;
-import SO.toDoList.repository.TaskRepository;
+package SO.toDoList.model.service;
+import SO.toDoList.model.SubTask;
+import SO.toDoList.model.entity.Task;
+import SO.toDoList.model.dto.TaskDTO;
+import SO.toDoList.model.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class TaskServiceImpl implements TaskService{
-
     private final TaskRepository repository;
     private HashMap<Integer, ArrayList<SubTask>> subtasks = new HashMap<>();
     private  int id = 1;
@@ -67,3 +66,4 @@ public class TaskServiceImpl implements TaskService{
         return subtasks.get(id);
     }
 }
+    

@@ -1,4 +1,4 @@
-package SO.toDoList.domain;
+package SO.toDoList.model;
 
 public class SubTask {
     private String naam;

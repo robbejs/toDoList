@@ -1,13 +1,7 @@
-package SO.toDoList.domain;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.lang.NonNull;
-
+package SO.toDoList.model.entity;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 @Entity
 public class Task {

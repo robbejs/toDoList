@@ -1,6 +1,6 @@
-package SO.toDoList.service;
-import SO.toDoList.domain.SubTask;
-import SO.toDoList.dto.TaskDTO;
+package SO.toDoList.model.service;
+import SO.toDoList.model.dto.TaskDTO;
+import SO.toDoList.model.SubTask;
 import java.util.ArrayList;
 import java.util.List;
 

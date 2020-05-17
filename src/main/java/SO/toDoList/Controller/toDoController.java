@@ -1,9 +1,9 @@
 package SO.toDoList.Controller;
-import SO.toDoList.domain.SubTask;
-import SO.toDoList.domain.Task;
-import SO.toDoList.dto.TaskDTO;
-import SO.toDoList.service.TaskService;
-import SO.toDoList.service.TaskServiceImpl;
+import SO.toDoList.model.SubTask;
+import SO.toDoList.model.entity.Task;
+import SO.toDoList.model.dto.TaskDTO;
+import SO.toDoList.model.service.TaskService;
+import SO.toDoList.model.service.TaskServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
