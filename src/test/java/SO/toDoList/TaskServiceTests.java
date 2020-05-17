@@ -25,6 +25,7 @@ public class TaskServiceTests {
         taskDTO.setDateAndTimeOfBeheading(LocalDateTime.now());
         taskDTO.setBeschrijving("test van wiskunde");
 
+
         service.addTask(taskDTO);
         List<TaskDTO> tasks = service.getTasks();
 
