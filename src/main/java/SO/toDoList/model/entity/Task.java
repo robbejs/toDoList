@@ -1,10 +1,14 @@
 package SO.toDoList.model.entity;
+import org.hibernate.annotations.Proxy;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 
 @Entity
+@Proxy(lazy=false)
 public class Task {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
