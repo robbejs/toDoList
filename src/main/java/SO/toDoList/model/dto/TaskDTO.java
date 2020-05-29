@@ -1,6 +1,6 @@
 package SO.toDoList.model.dto;
-
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 public class TaskDTO {
@@ -10,7 +10,9 @@ public class TaskDTO {
     @NotEmpty
     private String beschrijving;
 
+    @NotNull
     private LocalDateTime dateAndTimeOfBeheading;
+
     private int id;
 
     public void setNaam(String naam) {

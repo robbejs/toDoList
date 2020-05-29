@@ -3,18 +3,19 @@ import SO.toDoList.model.SubTask;
 import SO.toDoList.model.dto.TaskDTO;
 import SO.toDoList.model.entity.Task;
 import SO.toDoList.model.service.TaskService;
+import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import java.time.LocalDateTime;
 import java.util.List;
-
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-public class TaskServiceTests {
+@TestMethodOrder(MethodOrderer.Alphanumeric.class)
+public class TaskTests {
 
     @Autowired
     private TaskService service;
@@ -26,7 +27,6 @@ public class TaskServiceTests {
         taskDTO.setNaam("wiskunde");
         taskDTO.setDateAndTimeOfBeheading(LocalDateTime.now());
         taskDTO.setBeschrijving("test van wiskunde");
-
 
         service.addTask(taskDTO);
 
@@ -52,16 +52,13 @@ public class TaskServiceTests {
 
     @Test
     public void test3EditExistingTask(){
-
         TaskDTO hoofdTask = new TaskDTO();
         hoofdTask.setId(0);
         hoofdTask.setNaam("nederlands");
         hoofdTask.setDateAndTimeOfBeheading(LocalDateTime.now());
         hoofdTask.setBeschrijving("test van nederlands");
 
-        System.out.println(service.getTasks());
-
-        service.editTask(hoofdTask,0);
+        service.editTask(hoofdTask,1);
 
         assertEquals(hoofdTask.getNaam(),service.getTasks().get(0).getNaam());
         assertEquals(hoofdTask.getBeschrijving(),service.getTasks().get(0).getBeschrijving());
@@ -77,8 +74,10 @@ public class TaskServiceTests {
 
         service.addSubtask(0,subTask);
 
-        assertNotNull(service.returnSubtask(0).get(0).getNaam());
-        assertNotNull(service.returnSubtask(0).get(0).getBeschrijving());
+        assertEquals(1, service.returnSubtask(0).size());
+        assertEquals("Wiskunde", service.returnSubtask(0).get(0).getNaam());
+        assertEquals("Taak wiskunde", service.returnSubtask(0).get(0).getBeschrijving());
+        assertNotNull(service.returnSubtask(0).get(0));
     }
 
     @Test
@@ -117,5 +116,20 @@ public class TaskServiceTests {
         assertEquals(1, service.returnSubtask(0).size());
         SubTask subTask = service.returnSubtask(0).get(0);
         assertNotNull(subTask);
+    }
+
+    @Test
+    public void test8CreateWorkingSubtask(){
+        SubTask subTask2 = new SubTask("test", "test");
+        SubTask subTask = new SubTask();
+        subTask.setNaam("Wiskunde");
+        subTask.setBeschrijving("Toets Wiskunde");
+
+        assertNotNull(subTask.getNaam());
+        assertNotNull(subTask.getNaam());
+        assertEquals("Wiskunde", subTask.getNaam());
+        assertEquals("Toets Wiskunde", subTask.getBeschrijving());
+        assertEquals("test", subTask2.getNaam());
+        assertEquals("test", subTask2.getBeschrijving());
     }
 }

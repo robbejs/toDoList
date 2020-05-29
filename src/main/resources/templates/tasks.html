@@ -3,43 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <title>Tasks</title>
+    <link rel="stylesheet" type="text/css" href="/css/main.css" />
 </head>
-<style>
 
-    table {
-        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-        border-collapse: collapse;
-        width: 60%;
-        margin-right: auto;
-        margin-left: auto;
-    }
-
-    table td, table th {
-        border: 1px solid #ddd;
-        padding: 8px;
-    }
-
-    table tr:nth-child(even){background-color: #f2f2f2;}
-
-    table tr:hover {background-color: #ddd;}
-
-    table th {
-        padding-top: 12px;
-        padding-bottom: 12px;
-        text-align: left;
-        background-color: #4CAF50;
-        color: white;
-    }
-</style>
 <body>
+<div id="instellingen">
+    <form id="logout" th:action="@{/logout}" method="post">
+        <input type="submit" th:value="#{logout}"/>
+    </form>
+
+    <div id="taal">
+        <div id="lengte">
+            <span th:text="#{lang.change}"></span>:
+            <select id="mySelect" onchange="myFunction()">
+                <option value=""></option>
+                <option value="en" th:text="#{lang.en}"></option>
+                <option value="fr" th:text="#{lang.fr}"></option>
+                <option value="nl" th:text="#{lang.nl}"></option>
+            </select>
+        </div>
+    </div>
+</div>
+
     <table>
         <thead>
         <tr>
-            <th>Tasks</th>
-            <th>Description</th>
-            <th>Details</th>
-            <th>Edit Task</th>
-            <th>Sub Task</th>
+            <th th:text="#{tasks}"></th>
+            <th th:text="#{description}"></th>
+            <th th:text="#{details}"></th>
+            <th th:text="#{edit_task}"></th>
+            <th th:text="#{sub_task}"></th>
 
         </tr>
         </thead>
@@ -47,14 +40,18 @@
             <tr th:each="task : ${tasks}">
                 <td th:text="'Task ' + ${task.id }"></td>
                 <td th:utext="${task.naam} + '  - '  + ${task.beschrijving}"></td>
-                <td><a th:href="@{'/tasks/'+${task.id - 1}}">See details </a></td>
-                <td><a th:href="@{'/tasks/edit/'+${task.id - 1}}">Edit task</a></td>
-                <td><a th:href="@{'/tasks/'+${task.id - 1 +'/sub/create'}}">Create sub task</a></td>
+                <td><a th:href="@{'/tasks/'+${task.id - 1}}" th:text="#{see_details}"></a></td>
+                <td><a th:href="@{'/tasks/edit/'+${task.id - 1}}" th:text="#{edit_task}"></a></td>
+                <td><a th:href="@{'/tasks/'+${task.id - 1 +'/sub/create'}}" th:text="#{create_sub_task}"></a></td>
             </tr>
             <tr>
-                <td><a th:href="@{'/tasks/new'}">Create task</a></td>
+                <td><a th:href="@{'/tasks/new'}" th:text="#{create_task}"></a></td>
             </tr>
         </tbody>
     </table>
+
 </body>
+
+<script type="text/javascript" src="/js/jquery-1.11.0.js"></script>
+
 </html>

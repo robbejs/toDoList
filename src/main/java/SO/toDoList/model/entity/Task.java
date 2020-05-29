@@ -3,6 +3,7 @@ import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
@@ -16,6 +17,7 @@ public class Task {
     @NotEmpty
     private String naam;
 
+    @NotNull
     private LocalDateTime dateAndTimeOfBeheading;
 
     @NotEmpty

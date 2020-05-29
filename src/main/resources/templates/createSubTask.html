@@ -4,61 +4,50 @@
     <meta charset="UTF-8">
     <title>Create SubTask</title>
 </head>
-<style>
-    form{
-        width: 60%;
-        margin-right: auto;
-        margin-left: auto;
-    }
-    input[type=text], select {
-        width: 100%;
-        padding: 12px 20px;
-        margin: 8px 0;
-        display: inline-block;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-    }
 
-    input[type=submit] {
-        width: 100%;
-        background-color: #4CAF50;
-        color: white;
-        padding: 14px 20px;
-        margin: 8px 0;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
+<link rel="stylesheet" type="text/css" href="/css/main.css" />
 
-    input[type=submit]:hover {
-        background-color: #45a049;
-    }
-
-    div {
-        border-radius: 5px;
-        background-color: #f2f2f2;
-        padding: 20px;
-    }
-</style>
 <body>
+<div id="instellingen">
+    <form id="logout" th:action="@{/logout}" method="post">
+        <input type="submit" th:value="#{logout}"/>
+    </form>
+
+    <div id="taal">
+        <div id="lengte">
+            <span th:text="#{lang.change}"></span>:
+            <select id="mySelect" onchange="myFunction()">
+                <option value=""></option>
+                <option value="en" th:text="#{lang.en}"></option>
+                <option value="fr" th:text="#{lang.fr}"></option>
+                <option value="nl" th:text="#{lang.nl}"></option>
+            </select>
+        </div>
+    </div>
+</div>
 
 <form method="post" action="/tasks/createSubTask" th:object="${subTask}">
-    <h4>Edit Task</h4>
+    <h4 th:text="#{create_sub_task}"></h4>
     <div>
-        <label for="naam">Name: </label>
+        <label for="naam" th:text="#{name}"></label>
         <input type="text" th:field="*{naam}">
         <p th:errors="*{naam}"></p>
     </div>
     <div>
-        <label for="beschrijving">Description: </label>
+        <label for="beschrijving" th:text="#{description}"></label>
         <input type="text" th:field="*{beschrijving}">
         <p th:errors="*{beschrijving}"></p>
     </div>
     <input type="submit" value="Create Sub Task">
+
+    <p><a th:href="@{/}" th:text="#{home}"></a></p>
 </form>
 
-<p><a th:href="@{/}">Go back to home</a></p>
+
+
 
 </body>
+
+<script type="text/javascript" src="/js/jquery-1.11.0.js"></script>
+
 </html>

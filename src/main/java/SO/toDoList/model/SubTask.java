@@ -7,9 +7,9 @@ public class SubTask {
     public SubTask(){
     }
 
-    public SubTask(String naam, String beschrijving){
-        setNaam(naam);
-        setBeschrijving(beschrijving);
+    public SubTask(String naam, String beschrijving) {
+        this.naam = naam;
+        this.beschrijving = beschrijving;
     }
 
     public String getNaam() {
