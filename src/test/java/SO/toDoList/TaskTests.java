@@ -23,7 +23,6 @@ public class TaskTests {
     @Test
     public void test1AddTaskToTaskService(){
         TaskDTO taskDTO = new TaskDTO();
-        taskDTO.setId(0);
         taskDTO.setNaam("wiskunde");
         taskDTO.setDateAndTimeOfBeheading(LocalDateTime.now());
         taskDTO.setBeschrijving("test van wiskunde");
@@ -35,13 +34,12 @@ public class TaskTests {
         assertNotNull(service.getTasks().get(0).getDateAndTimeOfBeheading());
         assertNotNull(service.getTasks().get(0).getBeschrijving());
 
-        service.deleteTask(0);
+        service.deleteTask(1);
     }
 
     @Test
     public void test2CreateWorkingTask(){
         Task task = new Task();
-        task.setId(0);
         task.setNaam("wiskunde");
         task.setDateAndTimeOfBeheading(LocalDateTime.now());
         task.setBeschrijving("test van wiskunde");
@@ -60,19 +58,20 @@ public class TaskTests {
         test.setBeschrijving("azeraze");
 
         service.addTask(test);
+        System.out.println(service.getTasks().get(0).getId());
 
         TaskDTO hoofdTask = new TaskDTO();
         hoofdTask.setNaam("nederlands");
         hoofdTask.setDateAndTimeOfBeheading(LocalDateTime.now());
         hoofdTask.setBeschrijving("test van nederlands");
 
-        service.editTask(hoofdTask,1);
+        service.editTask(hoofdTask,2);
 
         assertEquals(hoofdTask.getNaam(),service.getTasks().get(0).getNaam());
         assertEquals(hoofdTask.getBeschrijving(),service.getTasks().get(0).getBeschrijving());
         assertEquals(hoofdTask.getDateAndTimeOfBeheading(),service.getTasks().get(0).getDateAndTimeOfBeheading());
 
-        service.deleteTask(1);
+        service.deleteTask(2);
     }
 
     @Test
@@ -93,13 +92,12 @@ public class TaskTests {
     @Test
     public void test5DeleteTaskFromTaskService(){
         TaskDTO taskDTO = new TaskDTO();
-        taskDTO.setId(0);
         taskDTO.setNaam("wiskunde");
         taskDTO.setDateAndTimeOfBeheading(LocalDateTime.now());
         taskDTO.setBeschrijving("test van wiskunde");
 
         service.addTask(taskDTO);
-        service.deleteTask(2);
+        service.deleteTask(3);
 
         assertEquals(0,service.getTasks().size());
     }
@@ -121,7 +119,8 @@ public class TaskTests {
         TaskDTO task = tasks.get(0);
         assertNotNull(task);
 
-        service.deleteTask(3);
+        service.deleteTask(4);
+        System.out.println(service.getTasks());
     }
 
     @Test
