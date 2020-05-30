@@ -58,11 +58,20 @@ public class TaskTests {
         hoofdTask.setDateAndTimeOfBeheading(LocalDateTime.now());
         hoofdTask.setBeschrijving("test van nederlands");
 
+        TaskDTO test = new TaskDTO();
+        test.setId(1);
+        test.setNaam("azeraz");
+        test.setDateAndTimeOfBeheading(LocalDateTime.now());
+        test.setBeschrijving("azeraze");
+        service.addTask(test);
+
         service.editTask(hoofdTask,1);
 
         assertEquals(hoofdTask.getNaam(),service.getTasks().get(0).getNaam());
         assertEquals(hoofdTask.getBeschrijving(),service.getTasks().get(0).getBeschrijving());
         assertEquals(hoofdTask.getDateAndTimeOfBeheading(),service.getTasks().get(0).getDateAndTimeOfBeheading());
+
+        service.deleteTask(1);
     }
 
     @Test
@@ -91,7 +100,7 @@ public class TaskTests {
 
         service.addTask(taskDTO);
 
-        service.deleteTask(1);
+        service.deleteTask(2);
 
         assertEquals(1,service.getTasks().size());
     }

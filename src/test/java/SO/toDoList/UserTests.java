@@ -86,7 +86,6 @@ public class UserTests {
 
         assertEquals("testa", testUser.getUsername());
         assertEquals(Role.ADMIN, testUser.getRole());
-        assertEquals((long) 1, testUser.getId());
     }
 
     @Test
