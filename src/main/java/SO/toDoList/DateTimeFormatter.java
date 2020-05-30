@@ -1,8 +1,6 @@
 package SO.toDoList;
-
 import org.springframework.format.Formatter;
 import org.springframework.stereotype.Component;
-
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.Locale;

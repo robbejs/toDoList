@@ -1,22 +1,25 @@
-package SO.toDoList.domain;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.lang.NonNull;
+package SO.toDoList.model.entity;
+import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 @Entity
+@Proxy(lazy=false)
 public class Task {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
     @NotEmpty
     private String naam;
+
+    @NotNull
     private LocalDateTime dateAndTimeOfBeheading;
+
     @NotEmpty
     private String beschrijving;
 

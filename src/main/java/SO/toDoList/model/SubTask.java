@@ -1,16 +1,15 @@
-package SO.toDoList.domain;
+package SO.toDoList.model;
 
 public class SubTask {
     private String naam;
     private String beschrijving;
 
     public SubTask(){
-
     }
 
-    public SubTask(String naam, String beschrijving){
-        setNaam(naam);
-        setBeschrijving(beschrijving);
+    public SubTask(String naam, String beschrijving) {
+        this.naam = naam;
+        this.beschrijving = beschrijving;
     }
 
     public String getNaam() {

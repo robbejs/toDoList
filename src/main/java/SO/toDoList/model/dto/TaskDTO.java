@@ -1,23 +1,18 @@
-package SO.toDoList.dto;
-
-import SO.toDoList.domain.SubTask;
-import SO.toDoList.domain.Task;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+package SO.toDoList.model.dto;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 public class TaskDTO {
     @NotEmpty
     private String naam;
+
     @NotEmpty
     private String beschrijving;
+
+    @NotNull
     private LocalDateTime dateAndTimeOfBeheading;
+
     private int id;
 
     public void setNaam(String naam) {

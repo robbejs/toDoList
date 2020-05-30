@@ -1,8 +1,8 @@
-package SO.toDoList.service;
-import SO.toDoList.domain.SubTask;
-import SO.toDoList.domain.Task;
-import SO.toDoList.dto.TaskDTO;
-import SO.toDoList.repository.TaskRepository;
+package SO.toDoList.model.service;
+import SO.toDoList.model.SubTask;
+import SO.toDoList.model.entity.Task;
+import SO.toDoList.model.dto.TaskDTO;
+import SO.toDoList.model.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -13,23 +13,24 @@ import java.util.stream.Collectors;
 @Service
 public class TaskServiceImpl implements TaskService{
     private final TaskRepository repository;
-    private HashMap<Integer, ArrayList<SubTask>> subtasks = new HashMap<>();
+    private HashMap<Integer, ArrayList<SubTask>> subtasks;
     private  int id = 1;
 
     @Autowired
     public TaskServiceImpl(TaskRepository repository) {
+        this.subtasks  = new HashMap<>();
         this.repository = repository;
     }
 
     @Override
     public List<TaskDTO> getTasks() {
         return repository.findAll().stream().map(h -> {
-            TaskDTO dto = new TaskDTO();
-            dto.setDateAndTimeOfBeheading(h.getDateAndTimeOfBeheading());
-            dto.setNaam(h.getNaam());
-            dto.setBeschrijving(h.getBeschrijving());
-            dto.setId(h.getId());
-            return dto;
+            TaskDTO taskDTO = new TaskDTO();
+            taskDTO.setDateAndTimeOfBeheading(h.getDateAndTimeOfBeheading());
+            taskDTO.setNaam(h.getNaam());
+            taskDTO.setBeschrijving(h.getBeschrijving());
+            taskDTO.setId(h.getId());
+            return taskDTO;
         }).collect(Collectors.toList());
     }
 
@@ -39,8 +40,7 @@ public class TaskServiceImpl implements TaskService{
         task.setNaam(taskDTO.getNaam());
         task.setBeschrijving(taskDTO.getBeschrijving());
         task.setDateAndTimeOfBeheading(taskDTO.getDateAndTimeOfBeheading());
-        task.setId(id);
-        id++;
+        task.setId(taskDTO.getId());
         repository.save(task);
     }
 
@@ -55,6 +55,7 @@ public class TaskServiceImpl implements TaskService{
 
     @Override
     public void addSubtask(int id, SubTask subTask){
+        //todo
         if (subtasks.get(id) == null) {
             subtasks.put(id, new ArrayList<>());
         }
@@ -62,7 +63,14 @@ public class TaskServiceImpl implements TaskService{
     }
 
     @Override
+    public void deleteTask(int id) {
+        Task task = repository.getOne(id+1);
+        repository.delete(task);
+    }
+
+    @Override
     public ArrayList<SubTask> returnSubtask(int id){
         return subtasks.get(id);
     }
 }
+    

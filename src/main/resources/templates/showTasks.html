@@ -4,61 +4,65 @@
         <meta charset="UTF-8">
         <title>Show tasks</title>
     </head>
-    <style>
-        table {
-            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-            border-collapse: collapse;
-            width: 100%;
-        }
 
-        table td, table th {
-            border: 1px solid #ddd;
-            padding: 8px;
-        }
+    <link rel="stylesheet" type="text/css" href="/css/main.css" />
 
-        table tr:nth-child(even){background-color: #f2f2f2;}
-
-        table tr:hover {background-color: #ddd;}
-
-        table th {
-            padding-top: 12px;
-            padding-bottom: 12px;
-            text-align: left;
-            background-color: #4CAF50;
-            color: white;
-        }
-    </style>
     <body>
-        <h2 th:if="${taskDetail == null}">TASK NOT FOUND</h2>
+
+    <div id="instellingen">
+        <form id="logout" th:action="@{/logout}" method="post">
+            <input type="submit"  th:value="#{logout}"/>
+        </form>
+
+        <div id="taal">
+            <div id="lengte">
+                <span th:text="#{lang.change}"></span>:
+                <select id="mySelect" onchange="myFunction()">
+                    <option value=""></option>
+                    <option value="en" th:text="#{lang.en}"></option>
+                    <option value="nl" th:text="#{lang.nl}"></option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+        <h2 th:if="${taskDetail == null}" th:text="#{}"></h2>
+
     <table th:if="${taskDetail != null}">
+
         <thead>
-            <th colspan="3">Task detail</th>
+            <th colspan="3" th:text="#{description}"></th>
         </thead>
+
         <tbody>
+            <tr>
+                <th th:text="#{details}"></th>
+                <td th:text="${taskDetail.naam}" colspan="2"></td>
+            </tr>
+            <tr>
+                <th th:text="#{description}"></th>
+                <td th:text="${taskDetail.beschrijving}" colspan="2"></td>
+            </tr>
+            <tr>
+                <th th:text="#{due_date}"></th>
+                <td th:text="${taskDetail.dateAndTimeOfBeheading}" colspan="2"></td>
+            </tr>
 
-        <tr>
-            <th>Title:</th>
-            <td th:text="${taskDetail.naam}" colspan="2"></td>
-        </tr>
-        <tr>
-            <th>Description:</th>
-            <td th:text="${taskDetail.beschrijving}" colspan="2"></td>
-        </tr>
-<tr>
-    <th>Due date:</th>
-    <td th:text="${taskDetail.dateAndTimeOfBeheading}" colspan="2"></td>
-</tr>
-<!--<div th:if="${taskDetail.getSubTasks().size() != 0}">-->
-    <tr th:each="subTask:${subTasks}">
-        <th>Sub task: </th>
-        <td th:text="${subTask.naam}"></td>
-        <td th:text="${subTask.beschrijving}"></td>
-    </tr>
-<!--</div>-->
+            <tr th:each="subTask:${subTasks}">
+                <th th:text="#{sub_task}"></th>
+                <td th:text="${subTask.naam}"></td>
+                <td th:text="${subTask.beschrijving}"></td>
+            </tr>
 
-</tbody>
-</table>
-<p><a th:href="@{/}">Go back to home</a></p>
+            <tr>
+                <td colspan="2"><a th:href="@{/}" th:text="#{home}"></a></td>
+            </tr>
+        </tbody>
+    </table>
 <p th:text="${errorMessage}"></p>
+
 </body>
+
+    <script type="text/javascript" src="/js/jquery-1.11.0.js"></script>
+
 </html>
