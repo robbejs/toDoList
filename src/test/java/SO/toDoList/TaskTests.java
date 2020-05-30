@@ -34,6 +34,8 @@ public class TaskTests {
         assertNotNull(service.getTasks().get(0).getId());
         assertNotNull(service.getTasks().get(0).getDateAndTimeOfBeheading());
         assertNotNull(service.getTasks().get(0).getBeschrijving());
+
+        service.deleteTask(0);
     }
 
     @Test
@@ -52,18 +54,17 @@ public class TaskTests {
 
     @Test
     public void test3EditExistingTask(){
-        TaskDTO hoofdTask = new TaskDTO();
-        hoofdTask.setId(0);
-        hoofdTask.setNaam("nederlands");
-        hoofdTask.setDateAndTimeOfBeheading(LocalDateTime.now());
-        hoofdTask.setBeschrijving("test van nederlands");
-
         TaskDTO test = new TaskDTO();
-        test.setId(1);
         test.setNaam("azeraz");
         test.setDateAndTimeOfBeheading(LocalDateTime.now());
         test.setBeschrijving("azeraze");
+
         service.addTask(test);
+
+        TaskDTO hoofdTask = new TaskDTO();
+        hoofdTask.setNaam("nederlands");
+        hoofdTask.setDateAndTimeOfBeheading(LocalDateTime.now());
+        hoofdTask.setBeschrijving("test van nederlands");
 
         service.editTask(hoofdTask,1);
 
@@ -91,7 +92,6 @@ public class TaskTests {
 
     @Test
     public void test5DeleteTaskFromTaskService(){
-
         TaskDTO taskDTO = new TaskDTO();
         taskDTO.setId(0);
         taskDTO.setNaam("wiskunde");
@@ -99,14 +99,20 @@ public class TaskTests {
         taskDTO.setBeschrijving("test van wiskunde");
 
         service.addTask(taskDTO);
-
         service.deleteTask(2);
 
-        assertEquals(1,service.getTasks().size());
+        assertEquals(0,service.getTasks().size());
     }
 
     @Test
     public void test6GetTasks(){
+        TaskDTO test = new TaskDTO();
+        test.setNaam("azeraz");
+        test.setDateAndTimeOfBeheading(LocalDateTime.now());
+        test.setBeschrijving("azeraze");
+
+        service.addTask(test);
+
         List<TaskDTO> tasks = service.getTasks();
 
         assertNotNull(tasks);
@@ -114,6 +120,8 @@ public class TaskTests {
         assertEquals(1, tasks.size());
         TaskDTO task = tasks.get(0);
         assertNotNull(task);
+
+        service.deleteTask(3);
     }
 
     @Test
